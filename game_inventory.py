@@ -42,8 +42,29 @@ def print_table(inventory, order=None):
       inventory) in descending order
     - "count,asc" means the table is ordered by count in ascending order
     '''
+    length = 0
+    for item_name in inventory:
+        if len(item_name) > length:
+            length = len(item_name)
+    # print(length)
 
-    pass
+    if length < 9:
+        length = 9
+
+    list_inventory = []
+
+    for key, value in inventory.items():
+        temp = [key, value]
+        list_inventory.append(temp)
+    format_str = "{:>" + str(length) + "} |{:>6}"
+    # print(list_inventory)
+    print("-----------------")
+    print("item name | count")
+    print("-----------------")
+    for line in inventory.items():
+        # print('{:>9} |{:>6}'.format(*line))
+        print(format_str.format(*line))
+    print("-----------------")
 
 
 def import_inventory(inventory, filename="import_inventory.csv"):
@@ -72,6 +93,8 @@ def export_inventory(inventory, filename="export_inventory.csv"):
     pass
 
 
-# inv = {'rope': 1, 'torch': 6, 'gold coin': 42, 'dagger': 1, 'arrow': 12}
+inv = {'rope': 1, 'torch': 6}
 
 # display_inventory(inv)
+
+print_table(inv)

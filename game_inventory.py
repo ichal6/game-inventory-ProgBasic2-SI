@@ -2,6 +2,7 @@
 # This is the file where you must work.
 # Write code in the functions (and create new functions) so that they work
 # according to the specification.
+import os
 
 
 def takeSecond(elem):
@@ -13,8 +14,6 @@ def display_inventory(inventory):
     rope: 1
     torch: 6
     '''
-    # inv = {'rope': 1, 'torch': 6, 'gold coin': 42, 'dagger': 1, 'arrow': 12}
-
     for key, val in inventory.items():
         print(key, ": ", val, sep="")
 
@@ -101,7 +100,7 @@ def import_inventory(inventory, filename="import_inventory.csv"):
                 else:
                     inventory[name] = 1
     except OSError:
-        print("File '" + filename + "' not found!")  
+        print("File '" + filename + "' not found!")
 
 
 def export_inventory(inventory, filename="export_inventory.csv"):
@@ -113,12 +112,26 @@ def export_inventory(inventory, filename="export_inventory.csv"):
 
     The file format is plain text with comma separated values (CSV).
     '''
+    try:
+        with open(filename, "w") as filewrite:
+            list_inventory = []
+            i = 0
+            for key, value in inventory.items():
+                temp = [key, value]
+                list_inventory.append(temp)
+            while i < len(list_inventory):
+                filewrite.write((list_inventory[i][0] + ",")*int(list_inventory[i][1]))
+                i += 1
+            filewrite.close()
+            with open(filename, "rb+") as filewrite:
+                filewrite.seek(-1, os.SEEK_END)
+                filewrite.truncate()
+                filewrite.close()
+    except OSError:
+        print("You don't have permission creating file '" + filename + "'!")
 
-    pass
-
-
-inv = {'rope': 1, 'torch': 6, 'blanket': 3}
+# inv = {'rope': 1, 'torch': 6, 'blanket': 3}
 
 # display_inventory(inv)
 # print_table(inv, "count,desc")
-import_inventory(inv, "test_inventory.csv")
+# export_inventory(inv)

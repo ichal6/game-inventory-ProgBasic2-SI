@@ -90,29 +90,18 @@ def import_inventory(inventory, filename="import_inventory.csv"):
 
     The file format is plain text with comma separated values (CSV).
     '''
-    fileopen = open(filename, "r")
-    for line in fileopen:
-        list_of_item = line.split(",")
-        # print(list_of_item)
-    
-    for name in list_of_item:
-        if inventory.get(name):
-            inventory[name] += 1
-        else:
-            inventory[name] = 1
-    list_of_value = [56, 23, 43, 97, 43, 102]
-
-    zip_obj = zip(list_of_item, list_of_value)
-
-    dict_of_words = dict(zip_obj)
-
-    # print(dict_of_words)
-
-    # print_table(inventory)
-
-    # inventory = dict_of_words
-
-    fileopen.close()
+    try:
+        with open(filename, "r") as fileopen:
+            for line in fileopen:
+                list_of_item = line.split(",")
+            fileopen.close()
+            for name in list_of_item:
+                if inventory.get(name):
+                    inventory[name] += 1
+                else:
+                    inventory[name] = 1
+    except OSError:
+        print("File '" + filename + "' not found!")  
 
 
 def export_inventory(inventory, filename="export_inventory.csv"):

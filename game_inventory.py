@@ -9,7 +9,10 @@ def display_inventory(inventory):
     rope: 1
     torch: 6
     '''
-    pass
+    # inv = {'rope': 1, 'torch': 6, 'gold coin': 42, 'dagger': 1, 'arrow': 12}
+
+    for key, val in inventory.items():
+        print(key, ": ", val, sep="")
 
 
 def add_to_inventory(inventory, added_items):
@@ -63,3 +66,8 @@ def export_inventory(inventory, filename="export_inventory.csv"):
     '''
 
     pass
+
+
+# inv = {'rope': 1, 'torch': 6, 'gold coin': 42, 'dagger': 1, 'arrow': 12}
+
+# display_inventory(inv)

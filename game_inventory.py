@@ -3,8 +3,10 @@
 # Write code in the functions (and create new functions) so that they work
 # according to the specification.
 
+
 def takeSecond(elem):
     return elem[1]
+
 
 def display_inventory(inventory):
     '''Display the inventory like this:
@@ -48,7 +50,6 @@ def print_table(inventory, order=None):
     for item_name in inventory:
         if len(item_name) > length:
             length = len(item_name)
-    # print(length)
 
     if length < 9:
         length = 9
@@ -58,8 +59,6 @@ def print_table(inventory, order=None):
     for key, value in inventory.items():
         temp = [key, value]
         list_inventory.append(temp)
-
-    
 
     format_str = "{:>" + str(length) + "} |{:>6}"
 
@@ -71,9 +70,6 @@ def print_table(inventory, order=None):
         list_inventory.sort(key=takeSecond, reverse=True)
         for x in range(len(list_inventory)):
             print(format_str.format(list_inventory[x][0], list_inventory[x][1]))
-            # print(list_inventory[x][0])
-       # for value in sorted(inventory.values(), reverse=True):
-       #     print(format_str.format(1, value))
     elif order == "count,asc":
         list_inventory.sort(key=takeSecond, reverse=False)
         for x in range(len(list_inventory)):
@@ -83,17 +79,7 @@ def print_table(inventory, order=None):
             print(format_str.format(*line))
 
     print("-----------------")
-      
 
-    
-    
-    # print(list_inventory)
-    
-
-    
-
-    
-    
 
 def import_inventory(inventory, filename="import_inventory.csv"):
     '''
@@ -104,8 +90,29 @@ def import_inventory(inventory, filename="import_inventory.csv"):
 
     The file format is plain text with comma separated values (CSV).
     '''
+    fileopen = open(filename, "r")
+    for line in fileopen:
+        list_of_item = line.split(",")
+        # print(list_of_item)
+    
+    for name in list_of_item:
+        if inventory.get(name):
+            inventory[name] += 1
+        else:
+            inventory[name] = 1
+    list_of_value = [56, 23, 43, 97, 43, 102]
 
-    pass
+    zip_obj = zip(list_of_item, list_of_value)
+
+    dict_of_words = dict(zip_obj)
+
+    # print(dict_of_words)
+
+    # print_table(inventory)
+
+    # inventory = dict_of_words
+
+    fileopen.close()
 
 
 def export_inventory(inventory, filename="export_inventory.csv"):
@@ -124,4 +131,5 @@ def export_inventory(inventory, filename="export_inventory.csv"):
 inv = {'rope': 1, 'torch': 6, 'blanket': 3}
 
 # display_inventory(inv)
-print_table(inv, "count,desc")
+# print_table(inv, "count,desc")
+import_inventory(inv, "test_inventory.csv")

@@ -17,7 +17,11 @@ def display_inventory(inventory):
 
 def add_to_inventory(inventory, added_items):
     '''Add to the inventory dictionary a list of items from added_items.'''
-    pass
+    for item in added_items:
+        if item in inventory:
+            inventory[item] += 1
+        else:
+            inventory[item] = 1
 
 
 def print_table(inventory, order=None):

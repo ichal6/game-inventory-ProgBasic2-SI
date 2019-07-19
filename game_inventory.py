@@ -3,6 +3,8 @@
 # Write code in the functions (and create new functions) so that they work
 # according to the specification.
 
+def takeSecond(elem):
+    return elem[1]
 
 def display_inventory(inventory):
     '''Display the inventory like this:
@@ -56,16 +58,42 @@ def print_table(inventory, order=None):
     for key, value in inventory.items():
         temp = [key, value]
         list_inventory.append(temp)
+
+    
+
     format_str = "{:>" + str(length) + "} |{:>6}"
-    # print(list_inventory)
+
     print("-----------------")
     print("item name | count")
     print("-----------------")
-    for line in inventory.items():
-        # print('{:>9} |{:>6}'.format(*line))
-        print(format_str.format(*line))
-    print("-----------------")
 
+    if order == "count,desc":
+        list_inventory.sort(key=takeSecond, reverse=True)
+        for x in range(len(list_inventory)):
+            print(format_str.format(list_inventory[x][0], list_inventory[x][1]))
+            # print(list_inventory[x][0])
+       # for value in sorted(inventory.values(), reverse=True):
+       #     print(format_str.format(1, value))
+    elif order == "count,asc":
+        list_inventory.sort(key=takeSecond, reverse=False)
+        for x in range(len(list_inventory)):
+            print(format_str.format(list_inventory[x][0], list_inventory[x][1]))
+    else:
+        for line in inventory.items():
+            print(format_str.format(*line))
+
+    print("-----------------")
+      
+
+    
+    
+    # print(list_inventory)
+    
+
+    
+
+    
+    
 
 def import_inventory(inventory, filename="import_inventory.csv"):
     '''
@@ -93,8 +121,7 @@ def export_inventory(inventory, filename="export_inventory.csv"):
     pass
 
 
-inv = {'rope': 1, 'torch': 6}
+inv = {'rope': 1, 'torch': 6, 'blanket': 3}
 
 # display_inventory(inv)
-
-print_table(inv)
+print_table(inv, "count,desc")

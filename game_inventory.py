@@ -130,8 +130,19 @@ def export_inventory(inventory, filename="export_inventory.csv"):
     except OSError:
         print("You don't have permission creating file '" + filename + "'!")
 
-# inv = {'rope': 1, 'torch': 6, 'blanket': 3}
+
+inv = {'rope': 1, 'torch': 6, 'blanket': 3}
 
 # display_inventory(inv)
 # print_table(inv, "count,desc")
 # export_inventory(inv)
+
+import_inventory(inv, "test_inventory.csv")
+
+
+print_table(inv)
+
+add_to_inventory(inv, ["coś", "rope"])
+
+
+print_table(inv)
